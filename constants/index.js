@@ -9,4 +9,8 @@ module.exports = {
     GOOGLE: {
         CALLBACK_URL: '/auth/google/callback',
     },
+    STORY_TYPES: {
+        PUBLIC: 'public',
+        PRIVATE: 'private',
+    },
 };
