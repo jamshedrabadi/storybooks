@@ -40,3 +40,25 @@ npm i -D eslint eslint-config-semistandard eslint-config-standard eslint-plugin-
 -----
 
 add dev and production run scripts in package.json
+
+-----
+
+EMAIL - jrworkemail1@gmail.com
+
+1. Go to Google cloud console
+2. Create Project - dev-1
+3. Go to API & Services
+4. Click on Enable APIs and Services
+5. Select Google+ API (Social Section)
+6. Click on Enable / Manage
+7. Click on Credentials
+8. Create Credentials - OAuth Client ID
+9. Might need to Configure OAuth Consent (External) - App1 - Save and Continue - jrworkemail1@gmail.com
+10. Back to Create Credentials - OAuth Client ID
+11. Application Type - Web Application
+12. Add Authorized Redirect URIs - http://localhost:3000/auth/google/callback
+13. Create
+14. Copy Client ID and Client Secret into project env
+
+-----
+
