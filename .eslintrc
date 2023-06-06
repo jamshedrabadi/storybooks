@@ -1,0 +1,99 @@
+{
+    "root": true,
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true
+    },
+    "extends": [
+        "semistandard",
+        "plugin:node/recommended",
+        "plugin:jsdoc/recommended-error"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018
+    },
+    "plugins": [
+        "sort-requires",
+        "jsdoc"
+    ],
+    "rules": {
+        "brace-style": "error",
+        "camelcase": [
+            "error",
+            {
+                "allow": [
+                    "\\w+V\\d+_\\d+"
+                ],
+                "properties": "never"
+            }
+        ],
+        "no-unused-vars": [
+            "error",
+            {
+                "vars": "all",
+                "args": "after-used",
+                "ignoreRestSiblings": true
+            }
+        ],
+        "no-console": "error",
+        "indent": [
+            "error",
+            4
+        ],
+        "prefer-const": "error",
+        "func-names": [
+            "error",
+            "always"
+        ],
+        "comma-dangle": [
+            "error",
+            "always-multiline"
+        ],
+        "lines-between-class-members": "off",
+        "no-prototype-builtins": "off",
+        "curly": [
+            "error",
+            "all"
+        ],
+        "object-curly-spacing": "error",
+        "array-bracket-spacing": "error",
+        "quote-props": "off",
+        "promise/always-return": "off",
+        "promise/no-return-wrap": "error",
+        "promise/param-names": "error",
+        "promise/catch-or-return": "error",
+        "promise/no-nesting": "off",
+        "promise/no-promise-in-callback": "error",
+        "promise/no-callback-in-promise": [
+            "error",
+            {
+                "exceptions": [
+                    "next"
+                ]
+            }
+        ],
+        "promise/avoid-new": "off",
+        "promise/no-new-statics": "error",
+        "promise/no-return-in-finally": "error",
+        "promise/valid-params": "error",
+        "node/no-deprecated-api": "warn",
+        "max-len": [
+            "error",
+            {
+                "ignoreUrls": true,
+                "code": 140,
+                "ignoreTrailingComments": true
+            }
+        ],
+        "multiline-comment-style": [
+            "error",
+            "starred-block"
+        ],
+        "sort-requires/sort-requires": 2
+    }
+}
