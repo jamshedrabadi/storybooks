@@ -22,13 +22,24 @@ dbConfig.connectDB();
 const app = express();
 const port = process.env.PORT || 3001;
 
+// Body Parser
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 // Logger
 if (process.env.NODE_ENV === constants.ENV.DEVELOPMENT) {
     app.use(morgan('dev'));
 }
 
+// Handlebars Helpers
+const { formatDate } = require('./helpers/hbs.js');
+
 // Handlebars
-app.engine('.hbs', expressHandlebars.engine({ defaultlayout: 'main', extname: '.hbs' }));
+app.engine('.hbs', expressHandlebars.engine({
+    helpers: { formatDate },
+    defaultlayout: 'main',
+    extname: '.hbs',
+}));
 app.set('view engine', 'hbs');
 
 // Sessions
@@ -50,6 +61,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routes
 app.use('/', require('./routes/index.js'));
 app.use('/auth', require('./routes/auth.js'));
+app.use('/stories', require('./routes/stories.js'));
 
 // eslint-disable-next-line no-console
 app.listen(port, console.log(`Server running on ${process.env.NODE_ENV} environment on port ${port}`));
