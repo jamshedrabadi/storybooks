@@ -1,4 +1,5 @@
 const authMiddleware = require('../middleware/auth.js');
+const constants = require('../constants/index.js');
 const errorConstants = require('../constants/errors.js');
 const express = require('express');
 const router = express.Router();
@@ -27,7 +28,25 @@ router.post('/', authMiddleware.ensureAuth, async (req, res) => {
         // eslint-disable-next-line no-console
         console.log('Error adding user story:', error);
         res.render('errors/500', {
-            message: errorConstants.STORY.ERROR_ADDING,
+            message: errorConstants.STORY.ERROR_ADDING_USER_STORIES,
+        });
+    }
+});
+
+/**
+ * Show All Public Stories
+ * GET
+ * /stories
+ */
+router.get('/', authMiddleware.ensureAuth, async (req, res) => {
+    try {
+        const stories = await Story.find({ status: constants.STORY_TYPES.PUBLIC }).populate('user').sort({ createdAt: 'desc' }).lean();
+        res.render('stories/index', { stories });
+    } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log('Error adding user story:', error);
+        res.render('errors/500', {
+            message: errorConstants.STORY.ERROR_FETCHING_PUBLIC_STORIES,
         });
     }
 });
