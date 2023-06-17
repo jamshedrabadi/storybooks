@@ -29,7 +29,7 @@ router.get('/dashboard', authMiddleware.ensureAuth, async (req, res) => {
         // eslint-disable-next-line no-console
         console.log('Error fetching user stories:', error);
         res.render('errors/500', {
-            message: errorConstants.STORY.ERROR_FETCHING,
+            message: errorConstants.STORY.ERROR_FETCHING_USER_STORIES,
         });
     }
 });
