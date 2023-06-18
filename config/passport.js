@@ -43,8 +43,4 @@ exports.initPassportConfig = (passport) => {
         console.log('Error looking for user in DB', error);
         throw error;
     }
-
-    // ----------
-
-    // Convert Story.remove() to Story.deleteOne()
 };

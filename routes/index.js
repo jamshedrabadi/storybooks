@@ -10,7 +10,7 @@ const Story = require('../models/Story.js');
  * /
  */
 router.get('/', authMiddleware.ensureGuest, (req, res) => {
-    res.render('login', { layout: 'login' });
+    return res.render('login', { layout: 'login' });
 });
 
 /**
@@ -21,16 +21,14 @@ router.get('/', authMiddleware.ensureGuest, (req, res) => {
 router.get('/dashboard', authMiddleware.ensureAuth, async (req, res) => {
     try {
         const stories = await Story.find({ user: req.user.id }).lean();
-        res.render('dashboard', {
+        return res.render('dashboard', {
             name: req.user.firstName,
             stories,
         });
     } catch (error) {
         // eslint-disable-next-line no-console
         console.log('Error fetching user stories:', error);
-        res.render('errors/500', {
-            message: errorConstants.STORY.ERROR_FETCHING_USER_STORIES,
-        });
+        return res.render('errors/500', { message: errorConstants.STORY.ERROR_FETCHING_USER_STORIES });
     }
 });
 

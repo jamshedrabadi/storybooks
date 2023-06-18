@@ -1,10 +1,13 @@
-<h3>Add Story</h3>
+<h3>Edit Story</h3>
 
 <div class="row">
-    <form action="/stories" method="POST" class="col s12">
+    <form action="/stories/{{story._id}}" method="POST" class="col s12">
+        {{!-- Hidden input to override request method since only GET and POST can be used by default --}}
+        <input type="hidden" name="_method" value="PUT">
+
         <div class="row">
             <div class="input-field">
-                <input type="text" name="title" id="title">
+                <input type="text" name="title" id="title" value="{{story.title}}">
                 <label for="title">Title</label>
             </div>
         </div>
@@ -12,9 +15,11 @@
         <div class="row">
             <div class="input-field">
                 <select name="status" id="status">
+                    {{#setDropdownValue story.status}}
                     <option>Choose an option</option>
                     <option value="public">Public</option>
                     <option value="private">Private</option>
+                    {{/setDropdownValue}}
                 </select>
                 <label for="status">Status</label>
             </div>
@@ -23,7 +28,7 @@
         <div class="row">
             <div class="input-field">
                 <h5>Tell us your story</h5>
-                <textarea name="body" id="body"></textarea>
+                <textarea name="body" id="body">{{story.body}}</textarea>
             </div>
         </div>
 
