@@ -2,13 +2,13 @@ exports.ensureAuth = (req, res, next) => {
     if (req.isAuthenticated()) {
         return next();
     } else {
-        res.redirect('/');
+        return res.redirect('/');
     }
 };
 
 exports.ensureGuest = (req, res, next) => {
     if (req.isAuthenticated()) {
-        res.redirect('/dashboard');
+        return res.redirect('/dashboard');
     } else {
         return next();
     }

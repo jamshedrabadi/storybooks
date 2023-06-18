@@ -3,6 +3,7 @@ const dbConfig = require('./config/db.js');
 const dotenv = require('dotenv');
 const express = require('express');
 const expressHandlebars = require('express-handlebars');
+const methodOverride = require('method-override');
 const mongoStore = require('connect-mongo');
 const morgan = require('morgan');
 const passport = require('passport');
@@ -26,17 +27,27 @@ const port = process.env.PORT || 3001;
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+// Method Override
+app.use(methodOverride((req) => {
+    if (req.body && typeof req.body === 'object' && req.body._method) {
+        // Look in urlencoded POST bodies and delete it
+        const method = req.body._method;
+        delete req.body._method;
+        return method;
+    }
+}));
+
 // Logger
 if (process.env.NODE_ENV === constants.ENV.DEVELOPMENT) {
     app.use(morgan('dev'));
 }
 
 // Handlebars Helpers
-const { formatDate, truncate, stripTags } = require('./helpers/hbs.js');
+const { formatDate, truncateText, stripTags, editIcon, setDropdownValue } = require('./helpers/hbs.js');
 
 // Handlebars
 app.engine('.hbs', expressHandlebars.engine({
-    helpers: { formatDate, truncate, stripTags },
+    helpers: { formatDate, truncateText, stripTags, editIcon, setDropdownValue },
     defaultlayout: 'main',
     extname: '.hbs',
 }));
@@ -54,6 +65,12 @@ app.use(session(sessionConfig));
 // Passport Middleware
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Set global user variable
+app.use((req, res, next) => {
+    res.locals.user = req.user || null;
+    next();
+});
 
 // Static Folder
 app.use(express.static(path.join(__dirname, 'public')));

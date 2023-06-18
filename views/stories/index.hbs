@@ -6,12 +6,13 @@
     <div class="col s12 m4">
         <div class="card">
             <div class="card-image">
-                {{!-- TODO: edit icon --}}
+                {{{editIcon user ../user _id true}}}
             </div>
 
             <div class="card-content center-align">
                 <h5>{{title}}</h5>
-                <p>{{stripTags (truncate body 150)}}</p>
+                {{!-- <p>{{stripTags (truncateText body 150)}}</p> --}}
+                <p>{{truncateText (stripTags body) 150}}</p>
 
                 <br>
 
